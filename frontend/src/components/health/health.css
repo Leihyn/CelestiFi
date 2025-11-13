@@ -1,0 +1,392 @@
+/* Pool Health Dashboard Styles - Celestial Theme */
+
+.pool-health-dashboard {
+  background: linear-gradient(135deg, rgba(26, 58, 75, 0.4), rgba(13, 27, 42, 0.6));
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  border-radius: 16px;
+  padding: 24px; /* Reduced from 32px */
+  margin-bottom: 0;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+              inset 0 1px 0 rgba(212, 175, 55, 0.1);
+}
+
+.pool-health-dashboard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+  opacity: 0.5;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.header-title h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Cinzel', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  color: #F4C430;
+  text-shadow: 0 0 20px rgba(244, 196, 48, 0.4);
+  letter-spacing: 0.05em;
+}
+
+.health-summary {
+  display: flex;
+  gap: 14px;
+}
+
+.summary-stat {
+  padding: 8px 16px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(184, 134, 11, 0.1));
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 16px;
+  font-size: 0.85rem;
+  font-family: 'Source Code Pro', monospace;
+  color: #FFE66D;
+  font-weight: 500;
+}
+
+.summary-stat.healthy {
+  background: linear-gradient(135deg, rgba(78, 205, 196, 0.2), rgba(78, 205, 196, 0.1));
+  border-color: rgba(78, 205, 196, 0.4);
+  color: #4ECDC4;
+  box-shadow: 0 0 12px rgba(78, 205, 196, 0.2);
+}
+
+.summary-stat.risky {
+  background: linear-gradient(135deg, rgba(238, 66, 102, 0.2), rgba(239, 68, 68, 0.15));
+  border-color: rgba(238, 66, 102, 0.4);
+  color: #EE4266;
+  box-shadow: 0 0 12px rgba(238, 66, 102, 0.2);
+}
+
+/* Pool Health List */
+.pool-health-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pool-health-item {
+  background: linear-gradient(135deg, rgba(26, 58, 75, 0.3), rgba(13, 27, 42, 0.4));
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 14px;
+  padding: 24px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.pool-health-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #F4C430, #D4AF37);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.pool-health-item:hover::before {
+  opacity: 1;
+}
+
+.pool-health-item:hover {
+  border-color: rgba(244, 196, 48, 0.5);
+  background: linear-gradient(135deg, rgba(26, 58, 75, 0.5), rgba(13, 27, 42, 0.6));
+  transform: translateX(4px);
+  box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
+}
+
+.pool-health-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+.pool-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pool-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: 'Philosopher', sans-serif;
+  color: #F4C430;
+}
+
+.pool-address {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.85rem;
+  font-weight: normal;
+  color: #A8B2C0;
+  margin-left: 4px;
+}
+
+.pool-metrics-summary {
+  display: flex;
+  gap: 20px;
+  font-size: 0.9rem;
+  color: #D4AF37;
+  font-family: 'Source Code Pro', monospace;
+  margin-top: 8px;
+}
+
+.health-rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(184, 134, 11, 0.1));
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 10px;
+  box-shadow: inset 0 2px 8px rgba(212, 175, 55, 0.1);
+}
+
+.rating-icon {
+  font-size: 2.2rem;
+  filter: drop-shadow(0 0 8px currentColor);
+}
+
+.rating-text {
+  font-size: 0.85rem;
+  color: #A8B2C0;
+  font-family: 'Philosopher', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.health-score {
+  font-size: 1.6rem;
+  font-weight: bold;
+  font-family: 'Cinzel', serif;
+  color: #F4C430;
+  text-shadow: 0 0 10px rgba(244, 196, 48, 0.4);
+}
+
+/* Health Metrics Grid */
+.health-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.health-metric {
+  background: linear-gradient(135deg, rgba(10, 22, 40, 0.6), rgba(13, 27, 42, 0.5));
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 10px;
+  padding: 16px;
+  transition: all 0.3s;
+}
+
+.health-metric:hover {
+  border-color: rgba(244, 196, 48, 0.4);
+  box-shadow: 0 4px 16px rgba(212, 175, 55, 0.15);
+}
+
+.metric-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  color: #D4AF37;
+}
+
+.metric-header svg {
+  filter: drop-shadow(0 0 4px rgba(244, 196, 48, 0.3));
+}
+
+.metric-label {
+  font-size: 0.85rem;
+  font-family: 'Philosopher', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.metric-score {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-family: 'Cinzel', serif;
+  color: #F4C430;
+  text-shadow: 0 0 8px rgba(244, 196, 48, 0.3);
+}
+
+.metric-bar {
+  height: 6px;
+  background: rgba(10, 22, 40, 0.8);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.metric-bar-fill {
+  height: 100%;
+  transition: width 0.5s ease;
+  background: linear-gradient(90deg, #D4AF37, #F4C430);
+  box-shadow: 0 0 8px rgba(244, 196, 48, 0.4);
+}
+
+/* Overall Health Bar */
+.health-bar-container {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.health-bar {
+  height: 10px;
+  background: rgba(10, 22, 40, 0.8);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.health-bar-fill {
+  height: 100%;
+  transition: width 0.5s ease;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #D4AF37, #F4C430, #FFD700);
+  box-shadow: 0 0 12px rgba(244, 196, 48, 0.5);
+}
+
+/* Health Distribution */
+.health-distribution {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.health-distribution h4 {
+  margin: 0 0 20px 0;
+  font-size: 1.1rem;
+  font-family: 'Cinzel', serif;
+  color: #F4C430;
+  letter-spacing: 0.05em;
+}
+
+.distribution-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.distribution-item {
+  display: grid;
+  grid-template-columns: 120px 1fr 60px;
+  gap: 16px;
+  align-items: center;
+}
+
+.distribution-label {
+  font-size: 0.9rem;
+  font-family: 'Philosopher', sans-serif;
+  color: #D4AF37;
+  font-weight: 500;
+}
+
+.distribution-bar {
+  height: 28px;
+  background: rgba(10, 22, 40, 0.8);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.distribution-fill {
+  height: 100%;
+  transition: width 0.5s ease;
+  background: linear-gradient(90deg, #D4AF37, #F4C430);
+  box-shadow: 0 0 8px rgba(244, 196, 48, 0.3);
+}
+
+.distribution-count {
+  font-weight: 600;
+  text-align: right;
+  font-family: 'Source Code Pro', monospace;
+  color: #F4C430;
+  font-size: 1.1rem;
+}
+
+/* Loading & Empty States */
+.health-loading,
+.health-empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: #A8B2C0;
+  font-family: 'Philosopher', sans-serif;
+}
+
+.health-empty svg {
+  opacity: 0.4;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.2));
+}
+
+.health-empty p {
+  font-size: 1.1rem;
+  color: #D4AF37;
+  margin-bottom: 8px;
+}
+
+.health-loading {
+  font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .health-metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .pool-health-header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .health-rating {
+    align-self: flex-start;
+  }
+
+  .health-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .distribution-item {
+    grid-template-columns: 100px 1fr 50px;
+  }
+}
