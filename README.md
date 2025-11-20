@@ -116,18 +116,6 @@ Frontend (React + Vite)
 
 ---
 
-## 📸 Screenshots
-
-### Dashboard
-![Dashboard Overview](docs/images/dashboard.png)
-
-### Whale Radar
-![Sonar Visualization](docs/images/whale-radar.png)
-
-### Impact Analysis
-![Impact Modal](docs/images/impact-modal.png)
-
----
 
 ## 📝 Documentation
 
