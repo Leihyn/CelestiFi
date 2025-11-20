@@ -133,10 +133,6 @@ Frontend (React + Vite)
 
 - **[Quick Start Guide](QUICK_START.md)** - Get started in 5 minutes
 - **[Architecture](ARCHITECTURE.md)** - Complete system architecture
-- **[Testing Checklist](TESTING_CHECKLIST.md)** - 38 comprehensive tests
-- **[Deployment Guide](DEPLOYMENT_GUIDE.md)** - Deploy to Railway & Vercel
-- **[Performance Optimizations](PERFORMANCE_OPTIMIZATIONS.md)** - Optimization details
-- **[Test Runner Guide](TEST_RUNNER_GUIDE.md)** - Automated testing
 
 ---
 
