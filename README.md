@@ -140,6 +140,16 @@ Frontend (React + Vite)
 
 ---
 
+## 📚 Technical Deep Dives
+
+Explore our in-depth technical articles on Notion:
+
+- **[Sub-100ms Event Detection](https://www.notion.so/sub-100ms-event-detection-notion-2b1a2b19e095807da70fd5bd80c7817c)** - How we achieved sub-second latency with event-driven architecture
+- **[Closing the Information Gap](https://www.notion.so/closing-information-gap-2b1a2b19e095800b888dd392bb9d4e99)** - Analysis of information asymmetry in DeFi and our solution
+- **[Polling to Streaming](https://www.notion.so/polling-to-streaming-2b0a2b19e0958020a1becbc012c38e8b)** - Migration from polling-based to streaming architecture
+
+---
+
 ## 🏆 Innovation Highlights
 
 1. **First Whale Correlation Engine** on Somnia
