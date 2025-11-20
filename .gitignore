@@ -31,3 +31,10 @@ Thumbs.db
 
 # Documentation (articles folder)
 articles/
+
+# Demo and guide files
+DEMO_QUICK_REFERENCE.md
+DEMO_TESTING_GUIDE.md
+DEPLOYMENT_GUIDE.md
+QUICK_START.md
+test-runner.sh
