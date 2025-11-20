@@ -1,8 +1,14 @@
-# 🐋 CelestiFi
+<div align="center">
+
+![CelestiFi Logo](logo.png)
+
+# CelestiFi
 
 **Real-time Whale Activity Tracking and Liquidity Intelligence for Somnia Network**
 
 > 🏆 **Hackathon Submission**: Somnia Data Streams Mini Hackathon (Nov 4-15, 2025)
+
+</div>
 
 ---
 
