@@ -30,6 +30,109 @@ const MOCK_ALERTS = [
 ];
 
 /**
+ * GET /api/alerts/types
+ * Get available alert types and their descriptions
+ * NOTE: This must be defined BEFORE /:alertId routes
+ */
+router.get('/types', async (req, res) => {
+  try {
+    const alertTypes = [
+      {
+        type: 'whale_detected',
+        name: 'Whale Detection',
+        description: 'Alert when a whale transaction exceeds threshold',
+        thresholdUnit: 'USD',
+        filters: ['poolAddress', 'walletAddress']
+      },
+      {
+        type: 'large_trade',
+        name: 'Large Trade',
+        description: 'Alert on large trades in a specific pool',
+        thresholdUnit: 'USD',
+        filters: ['poolAddress']
+      },
+      {
+        type: 'tvl_change',
+        name: 'TVL Change',
+        description: 'Alert when TVL changes by percentage',
+        thresholdUnit: '%',
+        filters: ['poolAddress']
+      },
+      {
+        type: 'price_impact',
+        name: 'Price Impact',
+        description: 'Alert on high price impact trades',
+        thresholdUnit: '%',
+        filters: ['poolAddress']
+      },
+      {
+        type: 'volume_spike',
+        name: 'Volume Spike',
+        description: 'Alert when volume spikes above average',
+        thresholdUnit: 'multiplier',
+        filters: ['poolAddress']
+      },
+      {
+        type: 'liquidity_drain',
+        name: 'Liquidity Drain',
+        description: 'Alert when liquidity drops significantly',
+        thresholdUnit: '%',
+        filters: ['poolAddress']
+      }
+    ];
+
+    res.json({
+      success: true,
+      data: { alertTypes }
+    });
+  } catch (error) {
+    logger.error('Error fetching alert types:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch alert types'
+    });
+  }
+});
+
+/**
+ * GET /api/alerts/stats
+ * Get alert statistics
+ * NOTE: This must be defined BEFORE /:alertId routes
+ */
+router.get('/stats', async (req, res) => {
+  try {
+    let stats;
+    try {
+      stats = alertEngine.getStats();
+    } catch (error) {
+      logger.warn('Alert engine error, using mock stats');
+      stats = {
+        totalAlerts: 2,
+        activeAlerts: 2,
+        triggeredToday: 4,
+        triggeredThisWeek: 12
+      };
+    }
+
+    res.json({
+      success: true,
+      data: stats
+    });
+  } catch (error) {
+    logger.error('Error fetching alert stats:', error);
+    res.json({
+      success: true,
+      data: {
+        totalAlerts: 2,
+        activeAlerts: 2,
+        triggeredToday: 4,
+        triggeredThisWeek: 12
+      }
+    });
+  }
+});
+
+/**
  * GET /api/alerts
  * Get all alerts for a user
  */
@@ -138,107 +241,6 @@ router.delete('/:alertId', async (req, res) => {
     res.status(500).json({
       success: false,
       error: error.message || 'Failed to delete alert'
-    });
-  }
-});
-
-/**
- * GET /api/alerts/stats
- * Get alert statistics
- */
-router.get('/stats', async (req, res) => {
-  try {
-    let stats;
-    try {
-      stats = alertEngine.getStats();
-    } catch (error) {
-      logger.warn('Alert engine error, using mock stats');
-      stats = {
-        totalAlerts: 2,
-        activeAlerts: 2,
-        triggeredToday: 4,
-        triggeredThisWeek: 12
-      };
-    }
-
-    res.json({
-      success: true,
-      data: stats
-    });
-  } catch (error) {
-    logger.error('Error fetching alert stats:', error);
-    res.json({
-      success: true,
-      data: {
-        totalAlerts: 2,
-        activeAlerts: 2,
-        triggeredToday: 4,
-        triggeredThisWeek: 12
-      }
-    });
-  }
-});
-
-/**
- * GET /api/alerts/types
- * Get available alert types and their descriptions
- */
-router.get('/types', async (req, res) => {
-  try {
-    const alertTypes = [
-      {
-        type: 'whale_detected',
-        name: 'Whale Detection',
-        description: 'Alert when a whale transaction exceeds threshold',
-        thresholdUnit: 'USD',
-        filters: ['poolAddress', 'walletAddress']
-      },
-      {
-        type: 'large_trade',
-        name: 'Large Trade',
-        description: 'Alert on large trades in a specific pool',
-        thresholdUnit: 'USD',
-        filters: ['poolAddress']
-      },
-      {
-        type: 'tvl_change',
-        name: 'TVL Change',
-        description: 'Alert when TVL changes by percentage',
-        thresholdUnit: '%',
-        filters: ['poolAddress']
-      },
-      {
-        type: 'price_impact',
-        name: 'Price Impact',
-        description: 'Alert on high price impact trades',
-        thresholdUnit: '%',
-        filters: ['poolAddress']
-      },
-      {
-        type: 'volume_spike',
-        name: 'Volume Spike',
-        description: 'Alert when volume spikes above average',
-        thresholdUnit: 'multiplier',
-        filters: ['poolAddress']
-      },
-      {
-        type: 'liquidity_drain',
-        name: 'Liquidity Drain',
-        description: 'Alert when liquidity drops significantly',
-        thresholdUnit: '%',
-        filters: ['poolAddress']
-      }
-    ];
-
-    res.json({
-      success: true,
-      data: { alertTypes }
-    });
-  } catch (error) {
-    logger.error('Error fetching alert types:', error);
-    res.status(500).json({
-      success: false,
-      error: 'Failed to fetch alert types'
     });
   }
 });

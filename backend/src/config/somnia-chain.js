@@ -2,28 +2,31 @@ const { createPublicClient, createWalletClient, http, defineChain } = require('v
 const { privateKeyToAccount } = require('viem/accounts');
 const logger = require('../utils/logger');
 
-// Somnia Dream Chain configuration using defineChain
+// Chain configuration - uses environment variables
+const chainId = parseInt(process.env.SOMNIA_CHAIN_ID) || 1;
+const rpcUrl = process.env.SOMNIA_RPC_URL || 'https://eth.llamarpc.com';
+
 const somniaChain = defineChain({
-  id: 50312,
-  name: 'Somnia Dream',
-  network: 'somnia-dream',
+  id: chainId,
+  name: chainId === 1 ? 'Ethereum' : 'Somnia Dream',
+  network: chainId === 1 ? 'mainnet' : 'somnia-dream',
   nativeCurrency: {
     decimals: 18,
-    name: 'STT',
-    symbol: 'STT'
+    name: chainId === 1 ? 'Ether' : 'STT',
+    symbol: chainId === 1 ? 'ETH' : 'STT'
   },
   rpcUrls: {
     default: {
-      http: ['https://dream-rpc.somnia.network']
+      http: [rpcUrl]
     },
     public: {
-      http: ['https://dream-rpc.somnia.network']
+      http: [rpcUrl]
     }
   },
   blockExplorers: {
     default: {
-      name: 'Somnia Explorer',
-      url: 'https://somnia.explorer.com'
+      name: chainId === 1 ? 'Etherscan' : 'Somnia Explorer',
+      url: chainId === 1 ? 'https://etherscan.io' : 'https://somnia.explorer.com'
     }
   }
 });

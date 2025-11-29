@@ -35,6 +35,7 @@ articles/
 # Demo and guide files
 DEMO_QUICK_REFERENCE.md
 DEMO_TESTING_GUIDE.md
+DEMO_SCRIPT.md
 DEPLOYMENT_GUIDE.md
 QUICK_START.md
 test-runner.sh

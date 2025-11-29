@@ -3,6 +3,7 @@ const router = express.Router();
 const logger = require('../utils/logger');
 const { getRedisClient, getJSON } = require('../config/redis');
 const impactAnalyzer = require('../services/impact-analyzer');
+const quickswapFetcher = require('../services/quickswap-fetcher');
 
 /**
  * Format pool object to standardized structure
@@ -92,7 +93,37 @@ router.get('/', async (req, res) => {
 
     // Check if Redis is available
     if (!redis || !redis.isOpen) {
-      logger.warn('Redis not available, returning mock data');
+      logger.warn('Redis not available, trying QuickSwap Fetcher...');
+
+      // Try to get pools from QuickSwap
+      try {
+        const quickswapPools = await quickswapFetcher.discoverPools();
+        if (quickswapPools && quickswapPools.length > 0) {
+          logger.info(`Returning ${quickswapPools.length} pools from QuickSwap`);
+          return res.json({
+            success: true,
+            data: {
+              pools: quickswapPools.slice(0, 5).map(pool => ({
+                address: pool.address,
+                dex: pool.dex,
+                token0: pool.token0.symbol,
+                token1: pool.token1.symbol,
+                tvl: parseFloat(pool.liquidity) || 0,
+                volume24h: 0, // Not available from current data
+                price: pool.price,
+                priceChange24h: 0, // Not available from current data
+                lastUpdate: pool.lastUpdate
+              }))
+            },
+            timestamp: Date.now()
+          });
+        }
+      } catch (error) {
+        logger.error('QuickSwap Fetcher failed:', error.message);
+      }
+
+      // Fallback to mock data
+      logger.warn('QuickSwap unavailable, returning mock data');
       return res.json({
         success: true,
         data: {
@@ -118,9 +149,38 @@ router.get('/', async (req, res) => {
       }
     }
 
-    // If no pools found in Redis, return mock data
+    // If no pools found in Redis, try QuickSwap
     if (pools.length === 0) {
-      logger.warn('No pools found in Redis, returning mock data');
+      logger.warn('No pools found in Redis, trying QuickSwap...');
+
+      try {
+        const quickswapPools = await quickswapFetcher.discoverPools();
+        if (quickswapPools && quickswapPools.length > 0) {
+          logger.info(`Returning ${quickswapPools.length} pools from QuickSwap`);
+          return res.json({
+            success: true,
+            data: {
+              pools: quickswapPools.slice(0, 5).map(pool => ({
+                address: pool.address,
+                dex: pool.dex,
+                token0: pool.token0.symbol,
+                token1: pool.token1.symbol,
+                tvl: parseFloat(pool.liquidity) || 0,
+                volume24h: 0,
+                price: pool.price,
+                priceChange24h: 0,
+                lastUpdate: pool.lastUpdate
+              }))
+            },
+            timestamp: Date.now()
+          });
+        }
+      } catch (error) {
+        logger.error('QuickSwap Fetcher failed:', error.message);
+      }
+
+      // Fallback to mock data
+      logger.warn('No data available, returning mock data');
       return res.json({
         success: true,
         data: {

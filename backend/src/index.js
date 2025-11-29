@@ -7,6 +7,7 @@ const logger = require('./utils/logger');
 const { connectRedis, disconnectRedis, setJSON, getJSON } = require('./config/redis');
 const socketHandler = require('./websocket/socket-handler');
 const sdsClient = require('./services/sds-client');
+const quickswapFetcher = require('./services/quickswap-fetcher');
 const whaleDetector = require('./services/whale-detector');
 const impactAnalyzer = require('./services/impact-analyzer');
 const alertEngine = require('./services/alert-engine');
@@ -202,6 +203,23 @@ async function initializeServices() {
       logger.error('❌ SDS initialization failed:', error.message);
       logger.warn('Server will start in degraded mode (no SDS streaming)');
       // Continue without SDS - allow server to start
+    }
+
+    // 2.5 Initialize QuickSwap Fetcher (for mainnet data)
+    logger.info('🔄 Initializing QuickSwap Fetcher...');
+    try {
+      await quickswapFetcher.initialize();
+      logger.info('✅ QuickSwap Fetcher initialized successfully');
+
+      // Try to discover pools
+      const discoveredPools = await quickswapFetcher.discoverPools();
+      if (discoveredPools.length > 0) {
+        logger.info(`📊 Discovered ${discoveredPools.length} QuickSwap pools on Somnia Mainnet`);
+      }
+    } catch (error) {
+      logger.error('❌ QuickSwap Fetcher initialization failed:', error.message);
+      logger.warn('Pool discovery will be limited');
+      // Continue without QuickSwap - allow server to start
     }
 
     // 3. Initialize WhaleDetector
